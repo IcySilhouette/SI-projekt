@@ -1,4 +1,5 @@
 .idea
+app/.env
 app/var
 app/vendor
 *.cache
