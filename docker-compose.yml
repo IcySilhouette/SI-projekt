@@ -10,6 +10,16 @@ services:
     depends_on:
       - php
 
+  php:
+    build: .docker/php
+    container_name: symfony_php
+    volumes:
+      - ./app:/home/wwwroot/app
+    environment:
+      - maildev_host=symfony_maildev
+    depends_on:
+      - mysql
+
   mysql:
     image: mysql:8.3
     ports:
@@ -20,6 +30,8 @@ services:
       MYSQL_DATABASE: symfony
       MYSQL_USER: symfony
       MYSQL_PASSWORD: symfony
+    volumes:
+      - db_data:/var/lib/mysql
 
   mysql_test:
     image: mysql:8.3
@@ -31,20 +43,15 @@ services:
       MYSQL_DATABASE: symfony_test
       MYSQL_USER: symfony_test
       MYSQL_PASSWORD: symfony_test
-
-  php:
-    build: .docker/php
-    container_name: symfony_php
     volumes:
-      - ./app:/home/wwwroot/app
-    environment:
-      - maildev_host=symfony_maildev
-    depends_on:
-      - maildev
-      - mysql
+      - db_test_data:/var/lib/mysql
 
   maildev:
     image: djfarrelly/maildev
     container_name: symfony_maildev
     ports:
       - "8001:80"
+
+volumes:
+  db_data:
+  db_test_data:
