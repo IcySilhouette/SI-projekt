@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel Admina - Użytkownicy{% endblock %}
+
+{% block body %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h1 style="color: #ffffff;">Zarządzanie użytkownikami</h1>
+        <span style="background-color: #dc3545; color: white; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 14px;">Strefa Administratora</span>
+    </div>
+
+    {% for message in app.flashes('success') %}
+        <div style="background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border-radius: 4px; border: 1px solid #c3e6cb;">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 10px; background-color: #212529;">
+        <thead>
+        <tr style="background-color: #343a40; color: white; text-align: left;">
+            <th style="padding: 12px; border: 1px solid #495057;">ID</th>
+            <th style="padding: 12px; border: 1px solid #495057;">Adres E-mail</th>
+            <th style="padding: 12px; border: 1px solid #495057;">Role w systemie</th>
+            <th style="padding: 12px; border: 1px solid #495057; text-align: center;">Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr style="background-color: {% if loop.index % 2 == 0 %}#2c3034{% else %}#212529{% endif %}; color: #ffffff;">
+                <td style="padding: 12px; border: 1px solid #495057;">{{ user.id }}</td>
+                <td style="padding: 12px; border: 1px solid #495057;"><strong>{{ user.email }}</strong></td>
+                <td style="padding: 12px; border: 1px solid #495057;">
+                    {% for role in user.roles %}
+                        <span style="background-color: {% if role == 'ROLE_ADMIN' %}#dc3545{% else %}#6c757d{% endif %}; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; margin-right: 5px;">
+                            {{ role }}
+                        </span>
+                    {% endfor %}
+                </td>
+                <td style="padding: 12px; border: 1px solid #495057; text-align: center;">
+                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" style="text-decoration: none; background-color: #007bff; color: white; padding: 6px 12px; border-radius: 4px; font-size: 13px; margin-right: 5px;">⚙️ Edytuj</a>
+                    <a href="{{ path('app_admin_user_change_password', {'id': user.id}) }}" style="text-decoration: none; background-color: #ffc107; color: #212529; padding: 6px 12px; border-radius: 4px; font-size: 13px;">🔑 Zmień hasło</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr style="background-color: #212529;">
+                <td colspan="4" style="padding: 12px; text-align: center; color: #aaa; border: 1px solid #495057;">Brak użytkowników w bazie.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

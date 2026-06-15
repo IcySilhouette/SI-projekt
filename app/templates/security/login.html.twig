@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Logowanie{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center my-4">
+        <div class="col-md-6 col-lg-5 col-xl-4">
+            <div class="card bg-dark text-light border-info border-2 shadow-lg rounded-3">
+                <div class="card-body p-4 p-sm-5">
+
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger border-0 shadow-sm text-center py-2 mb-3 small">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        {% endif %}
+
+                        {% if app.user %}
+                            <div class="alert alert-warning text-center py-2 mb-4 small">
+                                Jesteś już zalogowany jako <strong class="text-dark">{{ app.user.userIdentifier }}</strong>.<br>
+                                <a href="{{ path('app_logout') }}" class="alert-link text-decoration-none border-bottom border-dark">Wyloguj się</a>
+                            </div>
+                        {% endif %}
+
+                        <div class="text-center mb-4">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-info text-dark rounded-circle p-3 mb-2 shadow">
+                                <i class="bi bi-shield-lock-fill fs-3"></i>
+                            </div>
+                            <h1 class="h4 fw-bold text-uppercase tracking-wider text-info mb-0">Zaloguj się</h1>
+                            <p class="text-muted small">Podaj swoje dane, aby uzyskać dostęp</p>
+                        </div>
+
+                        <div class="form-floating mb-3 text-dark">
+                            <input type="email"
+                                   value="{{ last_username }}"
+                                   name="email"
+                                   id="inputEmail"
+                                   class="form-control bg-light border-0 shadow-sm"
+                                   autocomplete="email"
+                                   required
+                                   autofocus
+                                   placeholder="nazwa@domena.pl">
+                            <label for="inputEmail"><i class="bi bi-envelope-fill me-2 text-secondary"></i>Adres E-mail</label>
+                        </div>
+
+                        <div class="form-floating mb-4 text-dark">
+                            <input type="password"
+                                   name="password"
+                                   id="inputPassword"
+                                   class="form-control bg-light border-0 shadow-sm"
+                                   autocomplete="current-password"
+                                   required
+                                   placeholder="Hasło">
+                            <label for="inputPassword"><i class="bi bi-key-fill me-2 text-secondary"></i>Hasło</label>
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <div class="form-check mb-4 text-start text-muted small">
+                            <input class="form-check-input bg-secondary border-0" type="checkbox" name="_remember_me" id="remember_me">
+                            <label class="form-check-label text-light opacity-75" for="remember_me">
+                                Zapamiętaj mnie na tym urządzeniu
+                            </label>
+                        </div>
+
+                        <button class="btn btn-info text-dark fw-bold w-100 py-2.5 rounded-3 shadow text-uppercase tracking-wide transition-all" type="submit">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Zaloguj się
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="{{ path('app_register') }}" class="text-decoration-none text-muted small link-info">
+                    Nie masz jeszcze konta? <span class="text-info text-decoration-underline fw-semibold">Zarejestruj się tutaj</span>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

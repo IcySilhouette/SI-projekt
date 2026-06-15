@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nowy artykuł{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center my-4">
+        <div class="col-lg-8">
+
+            <div class="card bg-dark text-light border-info border-2 shadow-lg rounded-3">
+
+                <div class="card-header border-secondary bg-dark py-3">
+                    <h1 class="h3 mb-0 text-info fw-bold text-uppercase tracking-wide">
+                        <i class="bi bi-file-earmark-plus-fill me-2"></i>Tworzenie nowego artykułu
+                    </h1>
+                </div>
+
+                <div class="card-body p-4 text-dark">
+                    {{ form_start(form) }}
+
+                    <div class="mb-3">
+                        <label for="{{ form.title.vars.id }}" class="form-label text-light fw-semibold">
+                            <i class="bi bi-type-h1 text-info me-1"></i>Tytuł artykułu
+                        </label>
+                        {{ form_widget(form.title, {'attr': {'class': 'form-control bg-light border-0 shadow-sm py-2', 'placeholder': 'Wpisz chwytliwy tytuł...'}}) }}
+                        <div class="text-danger small">{{ form_errors(form.title) }}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.content.vars.id }}" class="form-label text-light fw-semibold">
+                            <i class="bi bi-justify-left text-info me-1"></i>Treść artykułu
+                        </label>
+                        {{ form_widget(form.content, {'attr': {'class': 'form-control bg-light border-0 shadow-sm py-2', 'rows': '6', 'placeholder': 'Napisz coś ciekawego...'}}) }}
+                        <div class="text-danger small">{{ form_errors(form.content) }}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.createdAt.vars.id }}" class="form-label text-light fw-semibold">
+                                <i class="bi bi-calendar-event text-info me-1"></i>Data publikacji
+                            </label>
+                            {{ form_widget(form.createdAt, {'attr': {'class': 'form-control bg-light border-0 shadow-sm'}}) }}
+                            <div class="text-danger small">{{ form_errors(form.createdAt) }}</div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.category.vars.id }}" class="form-label text-light fw-semibold">
+                                <i class="bi bi-folder-fill text-info me-1"></i>Kategoria
+                            </label>
+                            {{ form_widget(form.category, {'attr': {'class': 'form-select bg-light border-0 shadow-sm'}}) }}
+                            <div class="text-danger small">{{ form_errors(form.category) }}</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="{{ form.tags.vars.id }}" class="form-label text-light fw-semibold">
+                            <i class="bi bi-tags-fill text-info me-1"></i>Przypisz tagi <span class="text-muted small fw-normal">(przytrzymaj CTRL, aby wybrać kilka)</span>
+                        </label>
+                        {{ form_widget(form.tags, {'attr': {'class': 'form-select bg-light border-0 shadow-sm', 'style': 'min-height: 100px;'}}) }}
+                        <div class="text-danger small">{{ form_errors(form.tags) }}</div>
+                    </div>
+
+                    <hr class="border-secondary my-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <a href="{{ path('app_article_index') }}" class="btn btn-outline-light border-secondary text-secondary hover-light shadow-sm">
+                            <i class="bi bi-arrow-left-short fs-5 align-middle me-1"></i>Anuluj i wróć
+                        </a>
+
+                        <button type="submit" class="btn btn-info text-dark fw-bold px-4 py-2.5 shadow rounded-3 text-uppercase tracking-wider">
+                            <i class="bi bi-check-circle-fill me-2 fs-5 align-middle"></i>Zapisz artykuł
+                        </button>
+
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
