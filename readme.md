@@ -33,7 +33,11 @@ cd app
 6. Przygotuj plik środowiskowy i uzupełnij zmienne konfiguracyjne:
 ```bash
 cp .env.dev .env
+```
+```bash
 echo "DEFAULT_URI=http://localhost:8000" >> .env
+```
+```bash
 echo 'DATABASE_URL="mysql://symfony:symfony@mysql:3306/symfony?serverVersion=8.3&charset=utf8mb4"' >> .env
 ```
 
