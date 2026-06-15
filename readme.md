@@ -44,8 +44,8 @@ composer install
 
 8. Uruchom migracje bazy danych:
 ```bash
-```
 php bin/console doctrine:migrations:migrate --no-interaction
+```
 
 9. Załaduj dane testowe (fixtures):
 ```bash
