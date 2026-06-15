@@ -6,9 +6,7 @@
     <div class="row justify-content-center my-4">
         <div class="col-lg-9">
 
-
             <div class="card bg-dark text-light border-info border-2 shadow-lg rounded-3">
-
 
                 <div class="card-header border-secondary bg-dark pt-4 pb-3 px-4">
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
@@ -27,12 +25,10 @@
 
                 <div class="card-body p-4 bg-dark">
 
-
                     <div class="d-flex align-items-center text-white-50 small border-bottom border-secondary pb-3 mb-4">
                         <i class="bi bi-person-circle text-info fs-5 me-2"></i>
                         <span>Autor wpisu: <strong class="text-light">{{ article.author.email }}</strong></span>
                     </div>
-
 
                     <div class="p-4 rounded-3 border border-secondary mb-4 bg-secondary bg-opacity-10 shadow-inner">
                         <h5 class="text-info small text-uppercase fw-bold mb-3 tracking-wider opacity-75">
@@ -48,28 +44,26 @@
 
                     <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
 
-
                         <a href="{{ path('app_article_index') }}" class="btn btn-outline-light text-nowrap shadow-sm order-3 order-sm-1">
                             <i class="bi bi-arrow-left-short fs-5 align-middle me-1"></i>Powrót do listy
                         </a>
 
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="d-flex gap-2 order-1 order-sm-2 w-100 w-sm-auto justify-content-end">
 
-                        <div class="d-flex gap-2 order-1 order-sm-2 w-100 w-sm-auto justify-content-end">
+                                <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-info text-dark fw-bold px-4 shadow">
+                                    <i class="bi bi-pencil-square me-2"></i>Edytuj
+                                </a>
 
+                                <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Czy na pewno chcesz bezpowrotnie usunąć ten artykuł?');" style="display:inline-block;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                                    <button class="btn btn-danger fw-bold px-3 shadow">
+                                        <i class="bi bi-trash3-fill me-2"></i>Usuń artykuł
+                                    </button>
+                                </form>
 
-                            <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-info text-dark fw-bold px-4 shadow">
-                                <i class="bi bi-pencil-square me-2"></i>Edytuj
-                            </a>
-
-
-                            <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Czy na pewno chcesz bezpowrotnie usunąć ten artykuł?');" style="display:inline-block;">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-                                <button class="btn btn-danger fw-bold px-3 shadow">
-                                    <i class="bi bi-trash3-fill me-2"></i>Usuń artykuł
-                                </button>
-                            </form>
-
-                        </div>
+                            </div>
+                        {% endif %}
 
                     </div>
 
