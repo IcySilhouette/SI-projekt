@@ -67,6 +67,7 @@ php bin/console doctrine:fixtures:load --no-interaction
 10. Gotowa aplikacja jest dostępna w przeglądarce pod adresem: http://localhost:8000/article/
 
 Dane do logowania:
+
 Admin:
 Login: admin@admin.com
 Hasło: password1
