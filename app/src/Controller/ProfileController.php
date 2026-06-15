@@ -1,9 +1,6 @@
 <?php
-/**
- * This file is part of the Symfony application.
- *
- * (c) Application Profile Controller
- */
+
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -22,6 +19,8 @@ class ProfileController extends AbstractController
 {
     /**
      * Renders the profile index page.
+     *
+     * @return Response Response
      */
     #[Route('/profile', name: 'app_profile')]
     public function index(): Response
@@ -31,6 +30,11 @@ class ProfileController extends AbstractController
 
     /**
      * Handles the user email modification form.
+     *
+     * @param Request                $request       Request
+     * @param EntityManagerInterface $entityManager Entity manager
+     *
+     * @return Response Response
      */
     #[Route('/profile/edit-email', name: 'app_profile_edit_email', methods: ['GET', 'POST'])]
     public function editEmail(Request $request, EntityManagerInterface $entityManager): Response
@@ -56,6 +60,12 @@ class ProfileController extends AbstractController
 
     /**
      * Handles the user password modification form.
+     *
+     * @param Request                     $request        Request
+     * @param UserPasswordHasherInterface $passwordHasher Password hasher
+     * @param EntityManagerInterface      $entityManager  Entity manager
+     *
+     * @return Response Response
      */
     #[Route('/profile/change-password', name: 'app_profile_change_password', methods: ['GET', 'POST'])]
     public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response

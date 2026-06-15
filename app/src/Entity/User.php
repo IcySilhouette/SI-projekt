@@ -181,8 +181,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Erase credentials.
      *
      * @deprecated To be removed when upgrading to Symfony 8
-     *
-     * @return void
      */
     public function eraseCredentials(): void
     {

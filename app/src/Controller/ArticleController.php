@@ -22,7 +22,6 @@ use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use App\Service\ArticleService;
 use App\Service\CommentService;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -92,7 +91,7 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setAuthor($this->getUser());
-            $article->setCreatedAt(new DateTimeImmutable());
+            $article->setCreatedAt(new \DateTimeImmutable());
 
             $entityManager->persist($article);
             $entityManager->flush();
@@ -134,7 +133,7 @@ class ArticleController extends AbstractController
 
             $comment->setArticle($article);
             $comment->setAuthor($this->getUser());
-            $comment->setCreatedAt(new DateTimeImmutable());
+            $comment->setCreatedAt(new \DateTimeImmutable());
 
             $entityManager->persist($comment);
             $entityManager->flush();

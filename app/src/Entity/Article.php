@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -26,35 +25,20 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
 {
-    /**
-     * @var int|null
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    /**
-     * @var string|null
-     */
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    /**
-     * @var string|null
-     */
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    /**
-     * @var DateTimeImmutable|null
-     */
     #[ORM\Column]
-    private ?DateTimeImmutable $createdAt = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @var Category|null
-     */
     #[ORM\ManyToOne]
     private ?Category $category = null;
 
@@ -64,9 +48,6 @@ class Article
     #[ORM\ManyToMany(targetEntity: Tag::class)]
     private Collection $tags;
 
-    /**
-     * @var User|null
-     */
     #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'articles')]
     private ?User $author = null;
@@ -140,9 +121,9 @@ class Article
     /**
      * Get created at.
      *
-     * @return DateTimeImmutable|null Created at
+     * @return \DateTimeImmutable|null Created at
      */
-    public function getCreatedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -150,11 +131,11 @@ class Article
     /**
      * Set created at.
      *
-     * @param DateTimeImmutable $createdAt Created at
+     * @param \DateTimeImmutable $createdAt Created at
      *
      * @return $this
      */
-    public function setCreatedAt(DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 

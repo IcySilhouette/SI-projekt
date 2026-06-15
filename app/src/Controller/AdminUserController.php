@@ -1,8 +1,6 @@
 <?php
 
-/**
- * @license Proprietary
- */
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -18,18 +16,18 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Kontroler obsługujący panel administratora użytkowników.
+ * Controller managing user administration actions.
  */
 #[Route('/admin/user')]
 #[IsGranted('ROLE_ADMIN')]
 class AdminUserController extends AbstractController
 {
     /**
-     * Wyświetla listę wszystkich użytkowników.
+     * Lists all users.
      *
-     * @param UserRepository $userRepository
+     * @param UserRepository $userRepository User repository
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route('/', name: 'app_admin_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
@@ -40,14 +38,14 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * Obsługuje edycję danych użytkownika.
+     * Handles the user entity editing.
      *
-     * @param User                   $user
-     * @param Request                $request
-     * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface    $translator
+     * @param User                   $user          User entity
+     * @param Request                $request       Request
+     * @param EntityManagerInterface $entityManager Entity manager
+     * @param TranslatorInterface    $translator    Translator
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
     public function edit(User $user, Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
@@ -79,15 +77,15 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * Obsługuje zmianę hasła użytkownika przez administratora.
+     * Handles the user password modification by admin.
      *
-     * @param User                        $user
-     * @param Request                     $request
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param EntityManagerInterface      $entityManager
-     * @param TranslatorInterface         $translator
+     * @param User                        $user           User entity
+     * @param Request                     $request        Request
+     * @param UserPasswordHasherInterface $passwordHasher Password hasher
+     * @param EntityManagerInterface      $entityManager  Entity manager
+     * @param TranslatorInterface         $translator     Translator
      *
-     * @return Response
+     * @return Response Response
      */
     #[Route('/{id}/change-password', name: 'app_admin_user_change_password', methods: ['GET', 'POST'])]
     public function changePassword(User $user, Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response

@@ -1,9 +1,4 @@
 <?php
-/**
- * This file is part of the Symfony application.
- *
- * (c) Application User Profile Form
- */
 
 declare(strict_types=1);
 
@@ -14,29 +9,29 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * Form type for user profile editing.
+ * Class UserProfileType.
  */
 class UserProfileType extends AbstractType
 {
     /**
-     * Builds the user profile form.
+     * Builds the form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options The options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label' => 'label.email',
-                'constraints' => [
-                    new NotBlank(),
-                ],
-            ]);
+            ->add('email', EmailType::class)
+        ;
     }
 
     /**
-     * Configures the default options for this form.
+     * Configures the options.
+     *
+     * @param OptionsResolver $resolver The resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

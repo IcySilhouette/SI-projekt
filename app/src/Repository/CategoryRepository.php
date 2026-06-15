@@ -49,8 +49,6 @@ class CategoryRepository extends ServiceEntityRepository
      * Save entity.
      *
      * @param Category $category Category entity
-     *
-     * @return void
      */
     public function save(Category $category): void
     {

@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
-use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,7 +32,7 @@ class Comment
     private ?string $content = null;
 
     #[ORM\Column]
-    private ?DateTimeImmutable $createdAt = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(targetEntity: Article::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
@@ -80,9 +79,9 @@ class Comment
     /**
      * Getter for createdAt.
      *
-     * @return DateTimeImmutable|null Created at
+     * @return \DateTimeImmutable|null Created at
      */
-    public function getCreatedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -90,11 +89,11 @@ class Comment
     /**
      * Setter for createdAt.
      *
-     * @param DateTimeImmutable $createdAt Created at
+     * @param \DateTimeImmutable $createdAt Created at
      *
      * @return $this
      */
-    public function setCreatedAt(DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 

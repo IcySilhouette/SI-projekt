@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comment repository.
  *
@@ -35,9 +36,9 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * Pobiera spaginowaną listę komentarzy dla danego artykułu.
      *
-     * @param Article     $article Article entity
-     * @param int         $page    Page number
-     * @param int         $limit   Items per page
+     * @param Article $article Article entity
+     * @param int     $page    Page number
+     * @param int     $limit   Items per page
      *
      * @return Paginator Paginated collection
      */
