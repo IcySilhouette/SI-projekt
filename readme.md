@@ -30,7 +30,7 @@ docker-compose exec php bash
 ```bash
 cd app
 ```
-
+6. Przygotuj plik środowiskowy i uzupełnij zmienne konfiguracyjne:
 ```bash
 cp .env.dev .env
 echo "DEFAULT_URI=http://localhost:8000" >> .env
