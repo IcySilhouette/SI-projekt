@@ -3,8 +3,16 @@
 ## Opis
 
 Projekt zaliczeniowy wykonany we frameworku Symfony.
+Wymagania wstępne
 
-## Instalacja i uruchomienie
+Przed uruchomieniem projektu upewnij się, że na swoim komputerze masz zainstalowane i uruchomione następujące narzędzia:
+
+Docker Desktop (wraz z wtyczką docker-compose) – wymagany do uruchomienia środowiska i bazy danych.
+
+Git – wymagany do sklonowania repozytorium.
+
+Dowolne IDE (rekomendowany PhpStorm z wtyczką Symfony Support) – do wygodnego przeglądania kodu i zarządzania projektem.
+## Instalacja i uruchomienie (instrukcja dla phpstorm + docker desktop)
 
 1. Sklonuj repozytorium:
 ```bash
