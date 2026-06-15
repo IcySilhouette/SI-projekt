@@ -24,9 +24,9 @@ docker-compose exec php bash
 cd app
 
 6. Przygotuj plik środowiskowy i uzupełnij zmienne konfiguracyjne:
-* cp .env.dev .env **
-echo "DEFAULT_URI=http://localhost:8000" >> .env
-echo 'DATABASE_URL="mysql://symfony:symfony@mysql:3306/symfony?serverVersion=8.3&charset=utf8mb4"' >> .env
+* cp .env.dev .env *
+*echo "DEFAULT_URI=http://localhost:8000" >> .env *
+  echo 'DATABASE_URL="mysql://symfony:symfony@mysql:3306/symfony?serverVersion=8.3&charset=utf8mb4"' >> .env*
 
 7. Będąc wewnątrz kontenera, zainstaluj zależności:
 composer install
