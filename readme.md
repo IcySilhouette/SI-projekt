@@ -8,7 +8,7 @@ Projekt zaliczeniowy wykonany we frameworku Symfony.
 
 1. Sklonuj repozytorium:
 ```bash
-git clone [https://github.com/IcySilhouette/SI-projekt.git](https://github.com/IcySilhouette/SI-projekt.git)
+git clone https://github.com/IcySilhouette/SI-projekt.git
    ```
 2. Wejdź do pobranego folderu w konsoli:
 cd SI-projekt
@@ -23,7 +23,7 @@ docker-compose exec php bash
 5. Przejdź do folderu z aplikacją Symfony:
 cd app
 
-6. Wykonaj te komendy:
+6. Przygotuj plik środowiskowy i uzupełnij zmienne konfiguracyjne:
 cp .env.dev .env
 echo "DEFAULT_URI=http://localhost:8000" >> .env
 echo 'DATABASE_URL="mysql://symfony:symfony@mysql:3306/symfony?serverVersion=8.3&charset=utf8mb4"' >> .env
