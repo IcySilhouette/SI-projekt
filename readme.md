@@ -12,7 +12,7 @@ Docker Desktop (wraz z wtyczką docker-compose) – wymagany do uruchomienia śr
 Git – wymagany do sklonowania repozytorium.
 
 Dowolne IDE (rekomendowany PhpStorm z wtyczką Symfony Support) – do wygodnego przeglądania kodu i zarządzania projektem.
-## Instalacja i uruchomienie (instrukcja dla phpstorm + docker desktop)
+## Instalacja i uruchomienie
 
 1. Sklonuj repozytorium:
 ```bash
