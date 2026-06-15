@@ -1,84 +1,87 @@
-# Docker Symfony Starter Kit
+# Projekt: Gazeta Internetowa
 
-Starter kit is based on [The perfect kit starter for a Symfony 4 project with Docker and PHP 7.2](https://medium.com/@romaricp/the-perfect-kit-starter-for-a-symfony-4-project-with-docker-and-php-7-2-fda447b6bca1).
+## Opis
 
-## What is inside?
+Projekt zaliczeniowy wykonany we frameworku Symfony.
+Wymagania wstępne
 
-* Apache 2.4.66 (Debian)
-* PHP 8.5 FPM
-* MySQL 8.3
-* NodeJS LTS (latest)
-* Composer
-* Symfony CLI 
-* xdebug
-* djfarrelly/maildev
+Przed uruchomieniem projektu upewnij się, że na swoim komputerze masz zainstalowane i uruchomione następujące narzędzia:
 
-## Requirements
+Docker Desktop (wraz z wtyczką docker-compose) – wymagany do uruchomienia środowiska i bazy danych.
 
-* Install [Docker](https://www.docker.com/products/docker-desktop) and [Docker Compose](https://docs.docker.com/compose/install) on your machine 
+Git – wymagany do sklonowania repozytorium.
 
-## Installation
+Dowolne IDE (rekomendowany PhpStorm z wtyczką Symfony Support) – do wygodnego przeglądania kodu i zarządzania projektem.
+## Instalacja i uruchomienie
 
-* (optional) Add 
-
+1. Sklonuj repozytorium:
 ```bash
-127.0.0.1   symfony.local
+git clone https://github.com/IcySilhouette/SI-projekt.git
+   ```
+2. Wejdź do pobranego folderu w konsoli:
+```bash
+cd SI-projekt
 ```
-in your `host` file.
 
-* Run `build-env.sh` (or `build-env.ps1` on Windows box)
+3. Uruchom środowisko Docker w tle:
+```bash
+docker-compose up -d
+```
 
-* Enter the PHP container:
-
+4. Wejdź do powłoki kontenera PHP:
+(Jeśli Twój kontener ma inną nazwę, np. php-fpm, app lub www, podmień poniższe słowo php)
 ```bash
 docker-compose exec php bash
 ```
 
-* To install Symfony LTS inside container execute:
-
+5. Przejdź do folderu z aplikacją Symfony:
 ```bash
 cd app
-rm .gitkeep
-git config --global --add safe.directory /home/wwwroot/app
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
-symfony new ../app --version=lts --webapp
-chown -R dev.dev *
 ```
-
-## Container URLs and ports
-
-* Project URL
-
+6. Przygotuj plik środowiskowy i uzupełnij zmienne konfiguracyjne:
 ```bash
-http://localhost:8000
+cp .env.dev .env
 ```
-
-or 
-
 ```bash
-http://symfony.local:8000
+echo "DEFAULT_URI=http://localhost:8000" >> .env
+```
+```bash
+echo 'DATABASE_URL="mysql://symfony:symfony@mysql:3306/symfony?serverVersion=8.3&charset=utf8mb4"' >> .env
 ```
 
-* MySQL
-
-    * inside container: host is `mysql`, port: `3306`
-    * outside container: host is `localhost`, port: `3307`
-    * passwords, db name are in `docker-compose.yml`
-    
-* djfarrelly/maildev i available from the browser on port `8001`
-
-* xdebug i available remotely on port `9000`
-
-* Database connection in Symfony `.env` file:
-```yaml
-DATABASE_URL=mysql://symfony:symfony@mysql:3306/symfony?serverVersion=5.7
+7. Będąc wewnątrz kontenera, zainstaluj zależności:
+```bash
+composer install
 ```
 
-## Useful commands
+8. Uruchom migracje bazy danych:
+```bash
+php bin/console doctrine:migrations:migrate --no-interaction
+```
 
-* `docker compose up -d` - start containers
-* `docker compose down` - stop containers
-* `docker compose exec php bash` - enter into PHP container
-* `docker compose exec mysql bash` - enter into MySQL container
-* `docker compose exec apache bash` - enter into Apache2 container
+9. Załaduj dane testowe (fixtures):
+```bash
+php bin/console doctrine:fixtures:load --no-interaction
+```
+
+10. Gotowa aplikacja jest dostępna w przeglądarce pod adresem: http://localhost:8000/article/
+
+Dane do logowania:
+
+Admin:
+Login: admin@admin.com
+Hasło: password1
+
+User1
+Login: user1@user.com
+hasło: password1
+
+User2
+Login: user2@user.com
+hasło: password1
+
+User3
+Login: user3@user.com
+hasło: password1
+
+   
