@@ -52,7 +52,7 @@
                     <td class="fw-bold text-dark">{{ article.title }}</td>
                     <td class="text-secondary text-truncate" style="max-width: 200px;">{{ article.content }}</td>
                     <td class="text-muted small">
-                        <i class="bi bi-calendar3 me-1"></i>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}
+                        <i class="bi bi-calendar3 me-1"></i>{{ article.createdAt|format_datetime('short', 'short') }}
                     </td>
                     <td class="small text-secondary">{{ article.author.email }}</td>
 

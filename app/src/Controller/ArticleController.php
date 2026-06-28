@@ -121,14 +121,12 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$this->getUser()) {
-                $this->addFlash('danger', $this->translator->trans('message.to_add_comment'));
-
-                return $this->redirectToRoute('app_article_show', ['id' => $article->getId()]);
+            // ZMIANA: Zamiast blokować, po prostu przypisujemy autora tylko wtedy, gdy ktoś jest zalogowany.
+            if ($this->getUser()) {
+                $comment->setAuthor($this->getUser());
             }
 
             $comment->setArticle($article);
-            $comment->setAuthor($this->getUser());
             $comment->setCreatedAt(new \DateTimeImmutable());
 
             $entityManager->persist($comment);
@@ -193,7 +191,7 @@ class ArticleController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/delete', name: 'app_article_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_article_delete', methods: ['POST', 'DELETE'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {

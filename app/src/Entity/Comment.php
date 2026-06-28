@@ -39,8 +39,14 @@ class Comment
     private ?Article $article = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $author = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nick = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email = null;
 
     /**
      * Getter for ID.
@@ -144,6 +150,54 @@ class Comment
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Getter for nick.
+     *
+     * @return string|null Nick
+     */
+    public function getNick(): ?string
+    {
+        return $this->nick;
+    }
+
+    /**
+     * Setter for nick.
+     *
+     * @param string|null $nick Nick
+     *
+     * @return $this
+     */
+    public function setNick(?string $nick): static
+    {
+        $this->nick = $nick;
+
+        return $this;
+    }
+
+    /**
+     * Getter for email.
+     *
+     * @return string|null Email
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Setter for email.
+     *
+     * @param string|null $email Email
+     *
+     * @return $this
+     */
+    public function setEmail(?string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }

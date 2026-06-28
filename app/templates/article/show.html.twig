@@ -16,7 +16,7 @@
 
                         <div class="text-white-50 small fw-semibold">
                             <i class="bi bi-calendar3 text-info me-1"></i>
-                            {{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}
+                            {{ article.createdAt|format_datetime('short', 'short') }}
                         </div>
                     </div>
 
@@ -40,36 +40,86 @@
                         </p>
                     </div>
 
+                    <div class="mt-5">
+                        <h4 class="text-info mb-4">Komentarze</h4>
+
+                        <div class="card bg-secondary bg-opacity-10 p-3 mb-4">
+                            {{ form_start(comment_form) }}
+
+                            {% if app.user %}
+                                {% do comment_form.nick.setRendered() %}
+                                {% do comment_form.email.setRendered() %}
+                            {% else %}
+                                {{ form_row(comment_form.nick, {
+                                    'label_attr': {'class': 'text-light'},
+                                    'attr': {'class': 'text-light bg-dark'}
+                                }) }}
+                                {{ form_row(comment_form.email, {
+                                    'label_attr': {'class': 'text-light'},
+                                    'attr': {'class': 'text-light bg-dark'}
+                                }) }}
+                            {% endif %}
+
+                            {{ form_row(comment_form.content, {
+                                'label_attr': {'class': 'text-light'},
+                                'attr': {'class': 'text-light bg-dark'}
+                            }) }}
+                            <button type="submit" class="btn btn-info text-dark mt-2 fw-bold">Dodaj komentarz</button>
+                            {{ form_end(comment_form) }}
+                        </div>
+
+                        {% for comment in comments %}
+                            <div class="border-bottom border-secondary py-2 d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong>
+                                        {% if comment.author %}
+                                            {{ comment.author.email }}
+                                        {% else %}
+                                            {{ comment.nick|default('Anonim') }}
+                                        {% endif %}
+                                    </strong>
+                                    <p class="mb-1">{{ comment.content }}</p>
+                                    <small class="text-white-50">{{ comment.createdAt|format_datetime('short', 'short') }}</small>
+                                </div>
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <form method="post" action="{{ path('app_comment_delete', {'id': comment.id}) }}" onsubmit="return confirm('Na pewno chcesz usunąć ten komentarz?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                        <button class="btn btn-sm btn-outline-danger shadow-sm ms-3" title="Usuń komentarz">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <p class="text-white-50">Brak komentarzy.</p>
+                        {% endfor %}
+                    </div>
+
                     <hr class="border-secondary my-4">
 
                     <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
-
                         <a href="{{ path('app_article_index') }}" class="btn btn-outline-light text-nowrap shadow-sm order-3 order-sm-1">
                             <i class="bi bi-arrow-left-short fs-5 align-middle me-1"></i>Powrót do listy
                         </a>
 
                         {% if is_granted('ROLE_ADMIN') %}
                             <div class="d-flex gap-2 order-1 order-sm-2 w-100 w-sm-auto justify-content-end">
-
                                 <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-info text-dark fw-bold px-4 shadow">
                                     <i class="bi bi-pencil-square me-2"></i>Edytuj
                                 </a>
-
-                                <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Czy na pewno chcesz bezpowrotnie usunąć ten artykuł?');" style="display:inline-block;">
+                                <form method="post" action="{{ path('app_article_delete', {'id': article.id}) }}" style="display:inline-block;">
+                                    <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
                                     <button class="btn btn-danger fw-bold px-3 shadow">
                                         <i class="bi bi-trash3-fill me-2"></i>Usuń artykuł
                                     </button>
                                 </form>
-
                             </div>
                         {% endif %}
-
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 {% endblock %}

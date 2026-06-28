@@ -43,6 +43,12 @@ class Article
     private ?Category $category = null;
 
     /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
+
+    /**
      * @var Collection<int, Tag>
      */
     #[ORM\ManyToMany(targetEntity: Tag::class)]
@@ -58,6 +64,7 @@ class Article
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -162,6 +169,52 @@ class Article
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get comments.
+     *
+     * @return Collection<int, Comment> Comments collection
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add comment.
+     *
+     * @param Comment $comment Comment
+     *
+     * @return $this
+     */
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove comment.
+     *
+     * @param Comment $comment Comment
+     *
+     * @return $this
+     */
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getArticle() === $this) {
+                $comment->setArticle(null);
+            }
+        }
 
         return $this;
     }
