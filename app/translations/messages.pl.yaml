@@ -53,3 +53,6 @@ message:
     confirm_user_edit: "Czy na pewno chcesz zapisać zmiany dla tego użytkownika?"
     confirm_password_change: "Czy na pewno chcesz zmienić hasło temu użytkownikowi?"
     password_changed_successfully: "Hasło zostało pomyślnie zmienione."
+
+"Dodaj komentarz": "Dodaj komentarz"
+"Napisz coś mądrego...": "Napisz coś mądrego..."
